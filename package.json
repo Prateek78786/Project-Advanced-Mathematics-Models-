@@ -1,0 +1,17 @@
+{
+  "name": "lifetrack-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "client:dev": "cd client && npm run dev",
+    "client:build": "cd client && npm run build",
+    "install:all": "npm install && cd client && npm install"
+  },
+  "dependencies": {
+    "express": "^4.19.5",
+    "form-data": "^4.0.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

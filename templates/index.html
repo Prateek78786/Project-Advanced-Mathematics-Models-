@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeTrack Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero__content">
+            <p class="eyebrow">LifeTrack</p>
+            <h1>Wearable lifestyle analytics reimagined.</h1>
+            <p class="hero__text">Upload your Fitbit-style datasets, explore predictive consistency scores, anomaly trends, sleep quality, fatigue exposure, and data-driven lifestyle prescriptions.</p>
+            <div class="hero__actions">
+                <a href="#upload" class="button button--primary">Start analysis</a>
+                <a href="#prescriptions" class="button button--ghost">Explore guidance</a>
+            </div>
+        </div>
+        <div class="hero__visual">
+            <div class="stat-card stat-card--hero">
+                <span>BCI</span>
+                <strong id="hero-bci">—</strong>
+                <small>Behavioral Consistency Index</small>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="upload" class="card card--section">
+            <div class="section-header">
+                <div>
+                    <span class="section-tag">Interactive analytics</span>
+                    <h2>Upload wearables data</h2>
+                    <p>Submit one or more CSV files from Fitbit-style exports. The web engine merges, preprocesses, and automatically extracts daily indicators.</p>
+                </div>
+            </div>
+            <form id="upload-form" class="upload-form">
+                <label class="file-input">
+                    <input id="data-files" name="data_files" type="file" accept=".csv" multiple />
+                    Choose CSV file(s)
+                </label>
+                <button type="submit" class="button button--accent">Analyze dataset</button>
+                <p class="hint">Supports raw daily tables and minute-level segments uploaded together.</p>
+            </form>
+            <div id="form-message" class="message message--hidden"></div>
+        </section>
+
+        <section id="summary" class="grid-3 card card--section card--hidden">
+            <article class="metric-card">
+                <span>Consistency</span>
+                <strong id="metric-bci">—</strong>
+                <p>Average Behavioral Consistency Index across your dataset.</p>
+            </article>
+            <article class="metric-card">
+                <span>Predictive state</span>
+                <strong id="metric-state">—</strong>
+                <p>Recent lifestyle status based on entropy and anomaly contributions.</p>
+            </article>
+            <article class="metric-card">
+                <span>Sleep regularity</span>
+                <strong id="metric-sleep">—</strong>
+                <p>Mean nightly sleep duration from your uploaded data.</p>
+            </article>
+        </section>
+
+        <section id="visualizations" class="card card--section card--hidden">
+            <div class="section-header">
+                <div>
+                    <span class="section-tag">Visual intelligence</span>
+                    <h2>Advanced analytics dashboard</h2>
+                    <p>Interactive charts show consistency, entropy, anomaly density, and forecasted lifestyle states.</p>
+                </div>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-panel">
+                    <h3>BCI Trend</h3>
+                    <div id="chart-bci"></div>
+                </div>
+                <div class="chart-panel">
+                    <h3>Entropy distribution</h3>
+                    <div id="chart-entropy"></div>
+                </div>
+                <div class="chart-panel">
+                    <h3>Daily anomaly rate</h3>
+                    <div id="chart-anomaly"></div>
+                </div>
+                <div class="chart-panel">
+                    <h3>Sleep & fatigue</h3>
+                    <div id="chart-sleep"></div>
+                </div>
+                <div class="chart-panel chart-panel--wide">
+                    <h3>Markov forecast</h3>
+                    <div id="chart-forecast"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prescriptions" class="card card--section card--hidden">
+            <div class="section-header">
+                <div>
+                    <span class="section-tag">Action plan</span>
+                    <h2>Data-driven prescriptions</h2>
+                    <p>Personalized lifestyle guidance generated from consistency, sleep, and stress proxies.</p>
+                </div>
+            </div>
+            <div id="prescription-grid" class="prescription-grid"></div>
+        </section>
+
+        <section id="table" class="card card--section card--hidden">
+            <div class="section-header">
+                <div>
+                    <span class="section-tag">Dataset preview</span>
+                    <h2>Processed daily summary</h2>
+                    <p>Inspect the daily-level table produced from your uploaded wearable data.</p>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="result-table" class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>BCI</th>
+                            <th>Entropy</th>
+                            <th>Anomaly</th>
+                            <th>State</th>
+                            <th>Sleep</th>
+                            <th>Fatigue</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>LifeTrack Web • Advanced lifestyle consistency analytics • Built for demonstration and research use only.</p>
+    </footer>
+
+    <script>
+        const analyzeEndpoint = '{{ url_for("analyze") }}';
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
